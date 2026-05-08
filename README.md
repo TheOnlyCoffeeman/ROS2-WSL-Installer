@@ -3,8 +3,10 @@
 Automated installer for:
 
 - WSL2
-- Ubuntu 24.04 / 22.04
-- ROS2 Jazzy / Humble
+- Ubuntu 22.04 / 24.04
+- ROS2 Humble
+- ROS2 Jazzy
+- ROS2 Kilted
 - turtlesim
 - colcon
 - rosdep
@@ -12,12 +14,26 @@ Automated installer for:
 
 ---
 
-# Supported Systems
+# Supported ROS2 Distributions
 
-| Ubuntu | ROS2 |
-|---|---|
-| 24.04 (noble) | Jazzy |
-| 22.04 (jammy) | Humble |
+| ROS2 | Ubuntu | Status |
+|---|---|---|
+| Humble | 22.04 (jammy) | LTS |
+| Jazzy | 24.04 (noble) | LTS |
+| Kilted | 24.04 (noble) | Latest |
+
+---
+
+# Features
+
+- Interactive ROS2 distro selection
+- Automatic Ubuntu compatibility checks
+- Cleans conflicting ROS apt sources
+- Installs turtlesim
+- Initializes rosdep
+- Creates ROS2 workspace
+- Updates ~/.bashrc automatically
+- Supports Humble, Jazzy, and Kilted
 
 ---
 
@@ -37,8 +53,16 @@ Restart Windows.
 
 ## 2. Install Ubuntu
 
+Recommended:
+
 ```powershell
 wsl --install -d Ubuntu-24.04
+```
+
+For Humble:
+
+```powershell
+wsl --install -d Ubuntu-22.04
 ```
 
 ---
@@ -54,12 +78,33 @@ cd ros2-wsl-installer
 
 ---
 
-## 4. Run installer
+## 4. Make script executable
 
 ```bash
 chmod +x install_ros2_wsl.sh
+```
+
+---
+
+## 5. Run installer
+
+```bash
 ./install_ros2_wsl.sh
 ```
+
+---
+
+# ROS2 Selection
+
+The installer supports:
+
+```text
+1) Humble
+2) Jazzy
+3) Kilted
+```
+
+The script automatically checks Ubuntu compatibility.
 
 ---
 
@@ -76,17 +121,6 @@ ros2 run turtlesim turtlesim_node
 ```bash
 ros2 run turtlesim turtle_teleop_key
 ```
-
----
-
-# Features
-
-- Automatic ROS2 distro detection
-- Cleans conflicting ROS apt sources
-- Installs turtlesim
-- Initializes rosdep
-- Creates ROS2 workspace
-- Updates ~/.bashrc automatically
 
 ---
 
@@ -117,24 +151,4 @@ docs/troubleshooting.md
 
 # License
 
-MIT License
-
-Copyright (c) 2026 TheOnlyCoffeeman
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the “Software”), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+MIT

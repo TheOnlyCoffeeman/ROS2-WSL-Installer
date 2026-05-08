@@ -29,14 +29,54 @@ sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
 
 UBUNTU_CODENAME=$(lsb_release -cs)
 
-if [ "$UBUNTU_CODENAME" = "noble" ]; then
-  ROS_DISTRO="jazzy"
-elif [ "$UBUNTU_CODENAME" = "jammy" ]; then
-  ROS_DISTRO="humble"
-else
-  echo "Unsupported Ubuntu version: $UBUNTU_CODENAME"
-  echo "Use Ubuntu 24.04 for ROS 2 Jazzy or Ubuntu 22.04 for ROS 2 Humble."
+echo ""
+echo "Detected Ubuntu codename: $UBUNTU_CODENAME"
+echo ""
+
+echo "Select ROS 2 distribution:"
+echo "1) Humble  - Ubuntu 22.04 / jammy"
+echo "2) Jazzy   - Ubuntu 24.04 / noble"
+echo "3) Kilted  - Ubuntu 24.04 / noble"
+echo ""
+
+read -p "Enter choice [1-3]: " ROS_CHOICE
+
+case "$ROS_CHOICE" in
+  1)
+    ROS_DISTRO="humble"
+    REQUIRED_CODENAME="jammy"
+    ;;
+  2)
+    ROS_DISTRO="jazzy"
+    REQUIRED_CODENAME="noble"
+    ;;
+  3)
+    ROS_DISTRO="kilted"
+    REQUIRED_CODENAME="noble"
+    ;;
+  *)
+    echo "Invalid choice."
+    exit 1
+    ;;
+esac
+
+if [ "$UBUNTU_CODENAME" != "$REQUIRED_CODENAME" ]; then
+  echo ""
+  echo "Unsupported Ubuntu version for ROS 2 $ROS_DISTRO."
+  echo "Detected: $UBUNTU_CODENAME"
+  echo "Required: $REQUIRED_CODENAME"
+  echo ""
+  echo "Use:"
+  echo "- Ubuntu 22.04 / jammy for ROS 2 Humble"
+  echo "- Ubuntu 24.04 / noble for ROS 2 Jazzy or Kilted"
   exit 1
+fi
+
+if [ "$ROS_DISTRO" = "kilted" ]; then
+  echo ""
+  echo "Warning: ROS 2 Kilted is not an LTS release."
+  echo "For long-term stability, use Jazzy."
+  echo ""
 fi
 
 echo "Using ROS 2 distro: $ROS_DISTRO"
